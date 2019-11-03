@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:fluttergrab/ui/views/login.dart';
-import 'package:fluttergrab/ui/views/register.dart';
+import 'package:fluttergrab/ui/views/auth.dart';
+import 'package:fluttergrab/ui/views/home.dart';
 
 class Router {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route<dynamic> generateRoute(settings) {
     switch (settings.name) {
       case '/' :
-        return MaterialPageRoute(builder: (_)=> LoginView());
-      case '/register' :
-        return MaterialPageRoute(builder: (_)=> RegisterView());
+        return MaterialPageRoute(builder: (_)=> AuthView());
+      case '/home' :
+        return MaterialPageRoute(builder: (_)=> HomeView());
       default:
         return MaterialPageRoute(builder: (_) => Scaffold(body: Center(child: Text('No route defined for ${settings.name}'),),));
     }

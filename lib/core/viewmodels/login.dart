@@ -1,14 +1,15 @@
+// import 'package:fluttergrab/locator.dart';
 import 'package:flutter/material.dart';
 
-class RegisterView extends StatefulWidget {
+class LoginViewModel extends StatefulWidget {
   @override
-  _RegisterViewState createState() => _RegisterViewState();
+  _LoginViewState createState() => _LoginViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
+class _LoginViewState extends State<LoginViewModel> {
   TextEditingController _emailCtrl;
   TextEditingController _passCtrl;
-  bool _isObscure = false;
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -49,51 +50,43 @@ class _RegisterViewState extends State<RegisterView> {
         focusColor: Theme.of(context).primaryColor,
       ),
     );
+    
+    final _form = Form(
+      child: Column(
+        children: <Widget>[
+          _emailField,
+          SizedBox(height: 8.0),
+          _passwordField,
+        ],
+      ),
+    );
 
-    final _registerButton = Padding(
-      padding: EdgeInsets.symmetric(vertical: 16.0),
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
+    return Container(
+      child: Center(
+        child: ListView(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          children: <Widget>[
+            _logo,
+            SizedBox(height: 48.0),
+            _form,
+            SizedBox(height: 24.0),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0),
+              child: RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                onPressed: () => Navigator.of(context).pushReplacementNamed("/home"),
+                padding: EdgeInsets.all(12),
+                color: Theme.of(context).primaryColor,
+                child: Text('Log In', style: TextStyle(color: Colors.white)),
+              ),
+            ),
+          ],
         ),
-        onPressed: () {},
-        padding: EdgeInsets.all(12),
-        color: Theme.of(context).primaryColor,
-        child: Text('Register', style: TextStyle(color: Colors.white)),
-      ),
-    );
-
-    final _loginLabel = FlatButton(
-      child: Text(
-        "Already have an account?",
-        style: TextStyle(color: Colors.black54),
-      ),
-      onPressed: () => Navigator.of(context).pop(),
-    );
-
-    return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Center(
-          child: ListView(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
-            children: <Widget>[
-              _logo,
-              SizedBox(height: 48.0),
-              _emailField,
-              SizedBox(height: 8.0),
-              _passwordField,
-              SizedBox(height: 24.0),
-              _registerButton,
-              SizedBox(height: 48.0),
-              _loginLabel
-            ],
-          ),
-        )
-      ),
-    );
+      )
+    ); 
   }
 }

@@ -14,8 +14,6 @@ class LoginView extends StatelessWidget {
             title: Text("Counter"),
           ),
           body: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
             child: Center(
               child: Text("${model.getCounter()}"),
             )

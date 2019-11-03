@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "285771487110",
+    "firebase_url": "https://tct-firebase.firebaseio.com",
+    "project_id": "tct-firebase",
+    "storage_bucket": "tct-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:285771487110:android:10ebd27744434340b47e07",
+        "android_client_info": {
+          "package_name": "dev.tkworks.tutorgrab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "285771487110-1lmsn42vfkfrb39ddfv40hdcvjv59u3l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjVNOjm7KcZedJqiUpzYIyyw8s7ZQ-7cM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "285771487110-1lmsn42vfkfrb39ddfv40hdcvjv59u3l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
