@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttergrab/ui/widgets/menu.dart';
 
 class InstructorViewModel extends StatefulWidget {
   @override
