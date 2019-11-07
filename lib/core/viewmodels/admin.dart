@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttergrab/ui/widgets/adminMenu.dart';
+import 'package:fluttergrab/ui/widgets/menu.dart';
 
 class AdminViewModel extends StatefulWidget {
   @override

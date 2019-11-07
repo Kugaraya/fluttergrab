@@ -30,9 +30,9 @@ class _AuthViewState extends State<AuthView> with SingleTickerProviderStateMixin
     super.build(context);
     return Scaffold(
       appBar: TabBar(
+        controller: _tabController,
         labelColor: Theme.of(context).accentColor,
         indicatorColor: Theme.of(context).primaryColor,
-        controller: _tabController,
         tabs: <Widget>[
           Tab(
             icon: Icon(Icons.person_pin),

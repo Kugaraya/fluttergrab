@@ -1,6 +1,38 @@
 import 'package:fluttergrab/ui/widgets/menuclipper.dart';
 import 'package:flutter/material.dart';
 
+adminDrawer(BuildContext context) {
+  return Container(
+    padding: EdgeInsets.only(left: 16.0, right: 40),
+    decoration: BoxDecoration(
+      color: Colors.amber[700],
+      boxShadow: [BoxShadow(color: Colors.black45)]
+    ),
+    width: 300.0,
+    height: double.maxFinite,
+    child: SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 24.0),
+            Text(
+              "Admin Menu",
+              style: TextStyle(color: Colors.white, fontSize: 18.0),
+            ),
+            SizedBox(height: 40.0),
+            _buildRow(Icons.people, "Manage Accounts"),
+            _buildDivider(),
+            _buildRow(Icons.calendar_today, "Manage Courses"),
+            _buildDivider(),
+            _buildRow(Icons.note, "Manage Subjects"),
+            _buildDivider(),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
 buildDrawer(BuildContext context) {
   final String _img = "assets/teacher.png";
   return ClipPath(
@@ -8,7 +40,7 @@ buildDrawer(BuildContext context) {
     child: Container(
         padding: EdgeInsets.only(left: 16.0, right: 40),
         decoration: BoxDecoration(
-          color: Colors.amber[900],
+          color: Colors.amber[700],
           boxShadow: [BoxShadow(color: Colors.black45)]
         ),
         width: 300.0,
@@ -24,7 +56,7 @@ buildDrawer(BuildContext context) {
                   Icons.power_settings_new,
                   color: Colors.amber[200],
                 ),
-                onPressed: () => Navigator.of(context).pushReplacementNamed('/'),
+                onPressed: () => Navigator.of(context).pushReplacementNamed('/auth'),
               ),
             ),
             Container(
@@ -49,6 +81,10 @@ buildDrawer(BuildContext context) {
             Text(
               "kim.testa@curiouslab.sg",
               style: TextStyle(color: Colors.amber[200], fontSize: 16.0),
+            ),
+            Text(
+              "Admin",
+              style: TextStyle(color: Colors.white, fontSize: 12.0),
             ),
             SizedBox(height: 30.0),
             _buildRow(Icons.home, "Home"),

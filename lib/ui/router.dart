@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fluttergrab/ui/views/auth.dart';
 import 'package:fluttergrab/ui/views/home.dart';
+import 'package:fluttergrab/ui/views/splash.dart';
 
 class Router {
   static Route<dynamic> generateRoute(settings) {
     switch (settings.name) {
       case '/' :
+        return MaterialPageRoute(builder: (_)=> SplashView());
+      case '/auth' :
         return MaterialPageRoute(builder: (_)=> AuthView());
       case '/home' :
         return MaterialPageRoute(builder: (_)=> HomeView());

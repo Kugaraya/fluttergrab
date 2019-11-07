@@ -19,6 +19,10 @@ class MyApp extends StatelessWidget with WidgetsBindingObserver {
         SystemChrome.setEnabledSystemUIOverlays([]);
         break;
 
+      case AppLifecycleState.inactive:
+        SystemChrome.setEnabledSystemUIOverlays([]);
+        break;
+
       default:
         break;
     }

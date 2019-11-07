@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttergrab/ui/widgets/instructorMenu.dart';
+import 'package:fluttergrab/ui/widgets/menu.dart';
 
 class InstructorViewModel extends StatefulWidget {
   @override
@@ -39,7 +39,6 @@ class _InstructorViewModelState extends State<InstructorViewModel> with SingleTi
           Tab(text: "Done/Ended"),
         ],
       ),
-      endDrawer: instructorDrawer(context),
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
@@ -65,7 +64,7 @@ class _InstructorViewModelState extends State<InstructorViewModel> with SingleTi
                       ),
                       footer: Center(child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
-                        child: Text("Schedule/Instructor")
+                        child: Text("# of Students")
                       )),
                     ),
                   ),
@@ -90,7 +89,7 @@ class _InstructorViewModelState extends State<InstructorViewModel> with SingleTi
                     ),
                     footer: Center(child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
-                      child: Text("Schedule/Instructor")
+                      child: Text("# of Students")
                     )),
                   ),
                 ),
