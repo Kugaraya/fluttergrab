@@ -3,7 +3,8 @@ import 'package:fluttergrab/ui/router.dart';
 import 'package:fluttergrab/locator.dart';
 import 'package:flutter/material.dart';
 
-void main(){
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setEnabledSystemUIOverlays([]);
@@ -13,7 +14,7 @@ void main(){
 class MyApp extends StatelessWidget with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch(state) {
+    switch (state) {
       case AppLifecycleState.resumed:
         SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
         SystemChrome.setEnabledSystemUIOverlays([]);
@@ -31,11 +32,10 @@ class MyApp extends StatelessWidget with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'GrabTutor',
+      title: 'A+ Guru',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.amber[300],
-        accentColor: Colors.brown[300]
-      ),
+          primaryColor: Colors.amber[300], accentColor: Colors.brown[300]),
       initialRoute: '/',
       onGenerateRoute: Router.generateRoute,
     );
