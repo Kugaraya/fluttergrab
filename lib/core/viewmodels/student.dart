@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttergrab/core/models/cards.dart';
 import 'package:fluttergrab/core/services/auth-service.dart';
+import 'package:fluttergrab/core/viewmodels/update.dart';
 
 class StudentViewModel extends StatefulWidget {
   StudentViewModel(
@@ -102,7 +103,7 @@ class _StudentViewModelState extends State<StudentViewModel>
                 builder: (context, snapshot) {
                   if (!snapshot.hasData ||
                       snapshot.connectionState == ConnectionState.waiting) {
-                    return Text("Waiting");
+                    return Center(child: CircularProgressIndicator());
                   }
                   return Container(
                     child: SingleChildScrollView(
@@ -177,7 +178,17 @@ class _StudentViewModelState extends State<StudentViewModel>
                             thickness: 2.0,
                           ),
                           ListTile(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => UpdateView(
+                                        auth: widget.auth,
+                                        db: widget.db,
+                                        userEmail: widget.userEmail,
+                                        userId: widget.userId,
+                                        logoutCallback: widget.logoutCallback,
+                                        document: snapshot.data.documents[0],
+                                      )));
+                            },
                             leading: Icon(Icons.edit),
                             title: Text(
                               "Update Info",

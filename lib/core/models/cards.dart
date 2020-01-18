@@ -22,9 +22,7 @@ class CardBuilder {
         builder: (context, snapshot) {
           if (!snapshot.hasData ||
               snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return Center(child: CircularProgressIndicator());
           }
           if (snapshot.data.documents.length == 0) {
             return Center(
@@ -56,6 +54,21 @@ class CardBuilder {
                     },
                     child: GridTile(
                       header: GridTileBar(
+                        leading: snapshot.data.documents[i]["costs"] == null
+                            ? null
+                            : snapshot.data.documents[i]["costs"] < 1
+                                ? Icon(
+                                    Icons.attach_money,
+                                    color: Colors.green,
+                                  )
+                                : Icon(
+                                    Icons.attach_money,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                        trailing: Icon(
+                          Icons.info_outline,
+                          color: Colors.black,
+                        ),
                         title: Center(
                             child: Text(snapshot.data.documents[i]["subject"],
                                 textAlign: TextAlign.center,
@@ -95,9 +108,7 @@ class CardBuilder {
         builder: (context, snapshot) {
           if (!snapshot.hasData ||
               snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return Center(child: CircularProgressIndicator());
           }
           if (snapshot.data.documents.length == 0) {
             return Center(
@@ -116,6 +127,7 @@ class CardBuilder {
                   elevation: 5.0,
                   child: InkWell(
                     onTap: () {
+                      print(snapshot.data.documents[i]);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -129,6 +141,21 @@ class CardBuilder {
                     },
                     child: GridTile(
                       header: GridTileBar(
+                        leading: snapshot.data.documents[i]["costs"] == null
+                            ? null
+                            : snapshot.data.documents[i]["costs"] < 1
+                                ? Icon(
+                                    Icons.attach_money,
+                                    color: Colors.green,
+                                  )
+                                : Icon(
+                                    Icons.attach_money,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                        trailing: Icon(
+                          Icons.info_outline,
+                          color: Colors.black,
+                        ),
                         title: Center(
                             child: Text(snapshot.data.documents[i]["subject"],
                                 textAlign: TextAlign.center,
@@ -175,9 +202,7 @@ class CardBuilder {
         builder: (context, snapshot) {
           if (!snapshot.hasData ||
               snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return Center(child: CircularProgressIndicator());
           }
           if (snapshot.data.documents.length == 0) {
             return Center(
@@ -209,6 +234,21 @@ class CardBuilder {
                     },
                     child: GridTile(
                       header: GridTileBar(
+                        leading: snapshot.data.documents[i]["costs"] == null
+                            ? null
+                            : snapshot.data.documents[i]["costs"] < 1
+                                ? Icon(
+                                    Icons.attach_money,
+                                    color: Colors.green,
+                                  )
+                                : Icon(
+                                    Icons.attach_money,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                        trailing: Icon(
+                          Icons.info_outline,
+                          color: Colors.black,
+                        ),
                         title: Center(
                             child: Text(snapshot.data.documents[i]["subject"],
                                 textAlign: TextAlign.center,
@@ -252,9 +292,7 @@ class CardBuilder {
         builder: (context, snapshot) {
           if (!snapshot.hasData ||
               snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return Center(child: CircularProgressIndicator());
           }
           if (snapshot.data.documents.length == 0) {
             return Center(
@@ -286,6 +324,21 @@ class CardBuilder {
                     },
                     child: GridTile(
                       header: GridTileBar(
+                        leading: snapshot.data.documents[i]["costs"] == null
+                            ? null
+                            : snapshot.data.documents[i]["costs"] < 1
+                                ? Icon(
+                                    Icons.attach_money,
+                                    color: Colors.green,
+                                  )
+                                : Icon(
+                                    Icons.attach_money,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                        trailing: Icon(
+                          Icons.info_outline,
+                          color: Colors.black,
+                        ),
                         title: Center(
                             child: Text(snapshot.data.documents[i]["subject"],
                                 textAlign: TextAlign.center,

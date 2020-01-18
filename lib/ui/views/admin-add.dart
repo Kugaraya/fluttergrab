@@ -2,18 +2,18 @@ import 'package:fluttergrab/core/services/auth-service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class AuthPage extends StatefulWidget {
-  AuthPage({this.auth, this.loginCallback, this.db});
+class AdminAdd extends StatefulWidget {
+  AdminAdd({this.auth, this.loginCallback, this.db});
 
   final Firestore db;
   final BaseAuth auth;
   final VoidCallback loginCallback;
 
   @override
-  State<StatefulWidget> createState() => _AuthPageState();
+  State<StatefulWidget> createState() => _AdminAddState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _AdminAddState extends State<AdminAdd> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
 
@@ -21,7 +21,6 @@ class _AuthPageState extends State<AuthPage> {
   String _password;
   String _errorMessage;
 
-  bool _isLoginForm;
   bool _isLoading;
   bool _isObscure;
 
@@ -44,32 +43,23 @@ class _AuthPageState extends State<AuthPage> {
       });
       String userId = "";
       try {
-        if (_isLoginForm) {
-          userId = await widget.auth.signIn(_email, _password);
-          print('Signed in: $userId');
-        } else {
-          userId = await widget.auth.signUp(_email, _password);
-          widget.db.collection("accounts").add({
-            "course": "",
-            "email": _email,
-            "name": "",
-            "permission": 0,
-            "position": "Student",
-            "uid": userId,
-            "year": ""
-          });
-          print('Signed up user: $userId');
-          _scaffoldKey.currentState.showSnackBar(SnackBar(
-            content: Text("Student registration success"),
-          ));
-        }
+        userId = await widget.auth.signUp(_email, _password);
+        widget.db.collection("accounts").add({
+          "course": "",
+          "email": _email,
+          "name": "",
+          "permission": 1,
+          "position": "Instructor",
+          "uid": userId,
+          "year": ""
+        });
+        print('Signed up user: $userId');
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text("Instructor registration success"),
+        ));
         setState(() {
           _isLoading = false;
         });
-
-        if (userId.length > 0 && userId != null && _isLoginForm) {
-          widget.loginCallback();
-        }
         _formKey.currentState.reset();
       } catch (e) {
         print('Error: $e');
@@ -86,7 +76,6 @@ class _AuthPageState extends State<AuthPage> {
   void initState() {
     _errorMessage = "";
     _isLoading = false;
-    _isLoginForm = true;
     _isObscure = true;
     super.initState();
   }
@@ -96,17 +85,13 @@ class _AuthPageState extends State<AuthPage> {
     _errorMessage = "";
   }
 
-  void toggleFormMode() {
-    resetForm();
-    setState(() {
-      _isLoginForm = !_isLoginForm;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
+        appBar: AppBar(
+          title: Text("Register Instructor"),
+        ),
         body: Stack(
           children: <Widget>[
             _showForm(),
@@ -127,7 +112,6 @@ class _AuthPageState extends State<AuthPage> {
                 showEmailInput(),
                 showPasswordInput(),
                 showPrimaryButton(),
-                showSecondaryButton(),
                 showErrorMessage(),
               ],
             ),
@@ -215,14 +199,6 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 
-  Widget showSecondaryButton() {
-    return FlatButton(
-        child: Text(
-            _isLoginForm ? 'Create an account' : 'Have an account? Sign in',
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
-        onPressed: toggleFormMode);
-  }
-
   Widget showPrimaryButton() {
     if (_isLoading) {
       return Center(
@@ -238,7 +214,7 @@ class _AuthPageState extends State<AuthPage> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0)),
             color: Colors.blue,
-            child: Text(_isLoginForm ? 'Login' : 'Create account',
+            child: Text("Add Instructor",
                 style: TextStyle(fontSize: 20.0, color: Colors.white)),
             onPressed: validateAndSubmit,
           ),

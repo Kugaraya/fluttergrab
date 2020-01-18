@@ -37,7 +37,7 @@ class _DashboardMainState extends State<DashboardMain> {
         builder: (context, snapshot) {
           if (!snapshot.hasData ||
               snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Waiting");
+            return Center(child: CircularProgressIndicator());
           }
           int checker = snapshot.data.documents[0]["permission"];
           print(checker);

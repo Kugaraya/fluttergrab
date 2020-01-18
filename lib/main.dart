@@ -7,7 +7,6 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  SystemChrome.setEnabledSystemUIOverlays([]);
   runApp(MyApp());
 }
 
@@ -17,11 +16,9 @@ class MyApp extends StatelessWidget with WidgetsBindingObserver {
     switch (state) {
       case AppLifecycleState.resumed:
         SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-        SystemChrome.setEnabledSystemUIOverlays([]);
         break;
 
       case AppLifecycleState.inactive:
-        SystemChrome.setEnabledSystemUIOverlays([]);
         break;
 
       default:

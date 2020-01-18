@@ -60,6 +60,8 @@ class _InstructorAddState extends State<InstructorAdd> {
               "time-end": _timeEnd,
               "time-start": _timeStart
             },
+            "feedbacks": [],
+            // TODO : review feedbacks and costs
             "status": true,
             "students": [],
             "subject": _subject,
@@ -70,6 +72,7 @@ class _InstructorAddState extends State<InstructorAdd> {
           });
 
           _formKey.currentState.reset();
+          Navigator.of(context).pop();
         } catch (e) {
           print('Error: $e');
           setState(() {
@@ -222,7 +225,6 @@ class _InstructorAddState extends State<InstructorAdd> {
                     myLocationButtonEnabled: true,
                     layersButtonEnabled: true,
                   );
-                  print("result = $result");
                   if (result != null) {
                     setState(() {
                       _pickedLocation = result;
@@ -230,10 +232,15 @@ class _InstructorAddState extends State<InstructorAdd> {
                           _pickedLocation.latLng.latitude.toString();
                       _lngCtrl.text =
                           _pickedLocation.latLng.longitude.toString();
+                      _lat = _pickedLocation.latLng.latitude.toString();
+                      _lng = _pickedLocation.latLng.longitude.toString();
                     });
                   }
                 },
               )),
+          onChanged: (value) {
+            setState(() {});
+          },
           validator: (value) =>
               value.isEmpty ? 'Address can\'t be empty' : null,
           onSaved: (value) => _address = value.trim(),
