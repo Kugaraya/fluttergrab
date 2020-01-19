@@ -64,7 +64,6 @@ class _InstructorAddState extends State<InstructorAdd> {
             },
             "feedbacks": [],
             "evaluate": [],
-            // TODO : review feedbacks and costs
             "costs": _cost.isEmpty ? 0.0 : _cost,
             "status": true,
             "students": [],

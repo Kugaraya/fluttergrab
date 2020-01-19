@@ -292,10 +292,8 @@ class _StudentManageState extends State<StudentManage> {
                             widget.document["evaluate"]
                                     .contains(widget.userId) ==
                                 false
-                        // TODO : Review if ever
                         ? Center(
                             child: RaisedButton(
-                              // TODO : Student Evaluation - Text and Rating
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => Evaluate(
