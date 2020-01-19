@@ -9,6 +9,9 @@ class UpdateView extends StatefulWidget {
   final BaseAuth auth;
   final VoidCallback logoutCallback;
   final DocumentSnapshot document;
+  final String name;
+  final String course;
+  final String year;
 
   const UpdateView(
       {Key key,
@@ -17,7 +20,10 @@ class UpdateView extends StatefulWidget {
       this.userId,
       this.auth,
       this.logoutCallback,
-      this.document})
+      this.document,
+      this.name,
+      this.course,
+      this.year})
       : super(key: key);
   @override
   _UpdateViewState createState() => _UpdateViewState();
@@ -78,6 +84,7 @@ class _UpdateViewState extends State<UpdateView> {
         padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
         child: TextFormField(
           maxLines: 1,
+          initialValue: widget.name,
           keyboardType: TextInputType.text,
           autofocus: false,
           decoration: InputDecoration(
@@ -98,6 +105,7 @@ class _UpdateViewState extends State<UpdateView> {
         padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
         child: TextFormField(
           maxLines: 1,
+          initialValue: widget.course,
           keyboardType: TextInputType.text,
           autofocus: false,
           decoration: InputDecoration(
@@ -118,6 +126,7 @@ class _UpdateViewState extends State<UpdateView> {
         padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
         child: TextFormField(
           maxLines: 1,
+          initialValue: widget.year,
           keyboardType: TextInputType.text,
           autofocus: false,
           decoration: InputDecoration(

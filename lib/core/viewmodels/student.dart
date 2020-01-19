@@ -187,6 +187,12 @@ class _StudentViewModelState extends State<StudentViewModel>
                                         userId: widget.userId,
                                         logoutCallback: widget.logoutCallback,
                                         document: snapshot.data.documents[0],
+                                        name: snapshot.data.documents[0]
+                                            ["name"],
+                                        course: snapshot.data.documents[0]
+                                            ["course"],
+                                        year: snapshot.data.documents[0]
+                                            ["year"],
                                       )));
                             },
                             leading: Icon(Icons.edit),

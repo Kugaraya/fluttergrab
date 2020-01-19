@@ -69,7 +69,7 @@ class _StudentManageState extends State<StudentManage> {
               },
             ),
           ),
-          SizedBox(height: 115.0)
+          SizedBox(height: 135.0)
         ],
       );
     }
@@ -288,21 +288,40 @@ class _StudentManageState extends State<StudentManage> {
                               child: Text("Already Enrolled"),
                             ),
                           )
-                    : Center(
-                        child: RaisedButton(
-                          // TODO : Student Evaluation - Text and Rating
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Evaluate()));
-                          },
-                          color: Colors.red,
-                          elevation: 5.0,
-                          child: Text(
-                            "Tap to Evaluate",
-                            style: TextStyle(color: Colors.white),
+                    : widget.document["status"] == false &&
+                            widget.document["evaluate"]
+                                    .contains(widget.userId) ==
+                                false
+                        // TODO : Review if ever
+                        ? Center(
+                            child: RaisedButton(
+                              // TODO : Student Evaluation - Text and Rating
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => Evaluate(
+                                          auth: widget.auth,
+                                          db: widget.db,
+                                          document: widget.document,
+                                          userEmail: widget.userEmail,
+                                          userId: widget.userId,
+                                        )));
+                              },
+                              color: Colors.red,
+                              elevation: 5.0,
+                              child: Text(
+                                "Tap to Evaluate",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          )
+                        : Center(
+                            child: RaisedButton(
+                              onPressed: () {},
+                              color: Colors.grey,
+                              elevation: 5.0,
+                              child: Text("Already Evaluated"),
+                            ),
                           ),
-                        ),
-                      ),
                 Divider(thickness: 1.2),
               ],
             ),

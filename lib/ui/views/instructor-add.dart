@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttergrab/core/services/auth-service.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_map_location_picker/google_map_location_picker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -19,10 +20,11 @@ class InstructorAdd extends StatefulWidget {
 
 class _InstructorAddState extends State<InstructorAdd> {
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   LocationResult _pickedLocation;
   String _address, _topic, _subject, _days, _timeStart, _timeEnd;
   // ignore_for_file: unused_field
-  String _lat, _lng;
+  String _lat, _lng, _cost = "";
   TextEditingController _lngCtrl, _latCtrl;
   bool _isLoading;
 
@@ -61,7 +63,9 @@ class _InstructorAddState extends State<InstructorAdd> {
               "time-start": _timeStart
             },
             "feedbacks": [],
+            "evaluate": [],
             // TODO : review feedbacks and costs
+            "costs": _cost.isEmpty ? 0.0 : _cost,
             "status": true,
             "students": [],
             "subject": _subject,
@@ -72,6 +76,8 @@ class _InstructorAddState extends State<InstructorAdd> {
           });
 
           _formKey.currentState.reset();
+          _scaffoldKey.currentState.showSnackBar(
+              SnackBar(content: Text("Class $_subject is opened")));
           Navigator.of(context).pop();
         } catch (e) {
           print('Error: $e');
@@ -144,6 +150,27 @@ class _InstructorAddState extends State<InstructorAdd> {
       );
     }
 
+    Widget costInput() {
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
+        child: TextFormField(
+          maxLines: 1,
+          keyboardType: TextInputType.number,
+          autofocus: false,
+          decoration: InputDecoration(
+              prefixText: 'Php ',
+              hintText: 'Leave blank/0.0 if free',
+              labelText: 'Cost',
+              icon: Icon(
+                Icons.monetization_on,
+                color: Colors.grey,
+              )),
+          validator: (value) => value.isEmpty ? 'Cost can\'t be empty' : null,
+          onSaved: (value) => _cost = value.trim(),
+        ),
+      );
+    }
+
     Widget daysInput() {
       return Padding(
         padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
@@ -152,7 +179,8 @@ class _InstructorAddState extends State<InstructorAdd> {
           keyboardType: TextInputType.text,
           autofocus: false,
           decoration: InputDecoration(
-              hintText: 'Days (MWF, TTH)',
+              hintText: 'MWF/TTH',
+              labelText: 'Days',
               icon: Icon(
                 Icons.calendar_today,
                 color: Colors.grey,
@@ -171,7 +199,8 @@ class _InstructorAddState extends State<InstructorAdd> {
           keyboardType: TextInputType.text,
           autofocus: false,
           decoration: InputDecoration(
-              hintText: 'Topic',
+              hintText: 'Maps and Arrays',
+              labelText: 'Topic',
               icon: Icon(
                 Icons.library_books,
                 color: Colors.grey,
@@ -190,7 +219,8 @@ class _InstructorAddState extends State<InstructorAdd> {
           keyboardType: TextInputType.text,
           autofocus: false,
           decoration: InputDecoration(
-              hintText: 'Subject',
+              hintText: 'MATH1',
+              labelText: 'Subject',
               icon: Icon(
                 Icons.local_library,
                 color: Colors.grey,
@@ -210,7 +240,8 @@ class _InstructorAddState extends State<InstructorAdd> {
           keyboardType: TextInputType.text,
           autofocus: false,
           decoration: InputDecoration(
-              hintText: 'Address',
+              hintText: 'Bldg Name/Actual Address',
+              labelText: 'Address',
               icon: Icon(
                 Icons.location_city,
                 color: Colors.grey,
@@ -228,12 +259,16 @@ class _InstructorAddState extends State<InstructorAdd> {
                   if (result != null) {
                     setState(() {
                       _pickedLocation = result;
-                      _latCtrl.text =
-                          _pickedLocation.latLng.latitude.toString();
-                      _lngCtrl.text =
-                          _pickedLocation.latLng.longitude.toString();
                       _lat = _pickedLocation.latLng.latitude.toString();
                       _lng = _pickedLocation.latLng.longitude.toString();
+                      Fluttertoast.showToast(
+                          msg: "$_lat, $_lng",
+                          backgroundColor: Colors.black38,
+                          gravity: ToastGravity.BOTTOM,
+                          fontSize: 12.0,
+                          textColor: Colors.white,
+                          timeInSecForIos: 1,
+                          toastLength: Toast.LENGTH_SHORT);
                     });
                   }
                 },
@@ -248,39 +283,8 @@ class _InstructorAddState extends State<InstructorAdd> {
       );
     }
 
-    Widget lat(double lat) {
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
-        child: TextFormField(
-          controller: _latCtrl,
-          enabled: false,
-          maxLines: 1,
-          keyboardType: TextInputType.text,
-          autofocus: false,
-          readOnly: true,
-          onSaved: (value) => _lat = value.trim(),
-          initialValue: lat.toString(),
-        ),
-      );
-    }
-
-    Widget lng(double lng) {
-      return Padding(
-        padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
-        child: TextFormField(
-          controller: _lngCtrl,
-          enabled: false,
-          maxLines: 1,
-          keyboardType: TextInputType.text,
-          autofocus: false,
-          readOnly: true,
-          onSaved: (value) => _lng = value.trim(),
-          initialValue: lng.toString(),
-        ),
-      );
-    }
-
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text('Add Class'),
       ),
@@ -300,15 +304,10 @@ class _InstructorAddState extends State<InstructorAdd> {
                     subjectInput(),
                     topicInput(),
                     daysInput(),
+                    costInput(),
                     timeStartInput(),
                     timeEndInput(),
                     showAddressInput(),
-                    lat(_pickedLocation.latLng.latitude != null
-                        ? _pickedLocation.latLng.latitude
-                        : null),
-                    lng(_pickedLocation.latLng.longitude != null
-                        ? _pickedLocation.latLng.longitude
-                        : null),
                     showPrimaryButton()
                   ],
                 ),

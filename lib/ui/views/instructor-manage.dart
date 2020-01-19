@@ -62,7 +62,7 @@ class _InstructorManageState extends State<InstructorManage> {
               },
             ),
           ),
-          SizedBox(height: 115.0)
+          SizedBox(height: 135.0)
         ],
       );
     }
@@ -266,7 +266,6 @@ class _InstructorManageState extends State<InstructorManage> {
                       ),
                     )
                   : RaisedButton(
-                      //TODO : View list of evaluation
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Scaffold(
@@ -312,7 +311,7 @@ class _InstructorManageState extends State<InstructorManage> {
                                   ),
                                 )));
                       },
-                      child: Text("See Evaluation"),
+                      child: Text("See Evaluation/s"),
                     ),
               Divider(thickness: 1.2),
             ],

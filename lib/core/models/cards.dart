@@ -104,7 +104,10 @@ class CardBuilder {
   Widget studentAvailable(BuildContext context, Firestore db, String uid,
       SliverGridDelegate _gridDelegate) {
     return StreamBuilder(
-        stream: db.collection("classes").snapshots(),
+        stream: db
+            .collection("classes")
+            .where("status", isEqualTo: true)
+            .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData ||
               snapshot.connectionState == ConnectionState.waiting) {
@@ -113,7 +116,7 @@ class CardBuilder {
           if (snapshot.data.documents.length == 0) {
             return Center(
               child: Text(
-                "There are no available classes yet, wait for an instructor to post one",
+                "There are no available classes yet, wait/ask for an instructor to post one",
                 textScaleFactor: 2.0,
                 textAlign: TextAlign.center,
               ),
