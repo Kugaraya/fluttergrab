@@ -67,7 +67,9 @@ class CardBuilder {
                                   ),
                         trailing: Icon(
                           Icons.info_outline,
-                          color: Colors.black,
+                          color: snapshot.data.documents[i]["status"]
+                              ? Colors.black
+                              : Colors.red,
                         ),
                         title: Center(
                             child: Text(snapshot.data.documents[i]["subject"],
@@ -157,7 +159,9 @@ class CardBuilder {
                                   ),
                         trailing: Icon(
                           Icons.info_outline,
-                          color: Colors.black,
+                          color: snapshot.data.documents[i]["status"]
+                              ? Colors.black
+                              : Colors.red,
                         ),
                         title: Center(
                             child: Text(snapshot.data.documents[i]["subject"],
@@ -250,7 +254,9 @@ class CardBuilder {
                                   ),
                         trailing: Icon(
                           Icons.info_outline,
-                          color: Colors.black,
+                          color: snapshot.data.documents[i]["status"]
+                              ? Colors.black
+                              : Colors.red,
                         ),
                         title: Center(
                             child: Text(snapshot.data.documents[i]["subject"],
@@ -340,7 +346,9 @@ class CardBuilder {
                                   ),
                         trailing: Icon(
                           Icons.info_outline,
-                          color: Colors.black,
+                          color: snapshot.data.documents[i]["status"]
+                              ? Colors.black
+                              : Colors.red,
                         ),
                         title: Center(
                             child: Text(snapshot.data.documents[i]["subject"],

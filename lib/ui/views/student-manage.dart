@@ -38,7 +38,7 @@ class _StudentManageState extends State<StudentManage> {
     CameraPosition _kLocation = CameraPosition(
       target: LatLng(widget.document["location"].latitude,
           widget.document["location"].longitude),
-      zoom: 22.4746,
+      zoom: 18.4746,
     );
     Map<MarkerId, Marker> markers = <MarkerId, Marker>{
       MarkerId(widget.document.documentID): Marker(

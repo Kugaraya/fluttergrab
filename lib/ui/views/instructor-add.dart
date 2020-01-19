@@ -24,7 +24,8 @@ class _InstructorAddState extends State<InstructorAdd> {
   LocationResult _pickedLocation;
   String _address, _topic, _subject, _days, _timeStart, _timeEnd;
   // ignore_for_file: unused_field
-  String _lat, _lng, _cost = "";
+  String _lat, _lng;
+  double _cost = 0.0;
   TextEditingController _lngCtrl, _latCtrl;
   bool _isLoading;
 
@@ -39,9 +40,15 @@ class _InstructorAddState extends State<InstructorAdd> {
   Widget build(BuildContext context) {
     bool validateAndSave() {
       final form = _formKey.currentState;
-      if (form.validate()) {
-        form.save();
-        return true;
+      if (_lat == null || _lng == null) {
+        print("Map?");
+        _scaffoldKey.currentState.showSnackBar(
+            SnackBar(content: Text("Select a map location first")));
+      } else {
+        if (form.validate()) {
+          form.save();
+          return true;
+        }
       }
       return false;
     }
@@ -64,7 +71,7 @@ class _InstructorAddState extends State<InstructorAdd> {
             },
             "feedbacks": [],
             "evaluate": [],
-            "costs": _cost.isEmpty ? 0.0 : _cost,
+            "costs": _cost,
             "status": true,
             "students": [],
             "subject": _subject,
@@ -164,8 +171,7 @@ class _InstructorAddState extends State<InstructorAdd> {
                 Icons.monetization_on,
                 color: Colors.grey,
               )),
-          validator: (value) => value.isEmpty ? 'Cost can\'t be empty' : null,
-          onSaved: (value) => _cost = value.trim(),
+          onSaved: (value) => _cost = value.isEmpty ? 0.0 : double.parse(value),
         ),
       );
     }
