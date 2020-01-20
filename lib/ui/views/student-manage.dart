@@ -164,13 +164,13 @@ class _StudentManageState extends State<StudentManage> {
                 ),
                 ListTile(
                   leading: Icon(Icons.calendar_today, size: 32),
-                  title: Text(widget.document["schedule"].values.toList()[2]),
+                  title: Text(widget.document["schedule"]["days"]),
                 ),
                 ListTile(
                   leading: Icon(Icons.timer, size: 32),
-                  title: Text(widget.document["schedule"].values.toList()[0] +
+                  title: Text(widget.document["schedule"]["time-start"] +
                       " - " +
-                      widget.document["schedule"].values.toList()[1]),
+                      widget.document["schedule"]["time-end"]),
                 ),
                 ListTile(
                   leading: Icon(
