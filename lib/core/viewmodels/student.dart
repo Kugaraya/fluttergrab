@@ -107,6 +107,7 @@ class _StudentViewModelState extends State<StudentViewModel>
                   }
                   return Container(
                     child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
                       child: Column(
                         children: <Widget>[
                           Container(

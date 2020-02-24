@@ -148,6 +148,7 @@ class _UpdateViewState extends State<UpdateView> {
         title: Text("Account Update"),
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Container(
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 12.0),

@@ -159,6 +159,7 @@ class _AdminViewModelState extends State<AdminViewModel> {
                 }
                 return Container(
                   child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
                     child: Column(
                       children: <Widget>[
                         Container(

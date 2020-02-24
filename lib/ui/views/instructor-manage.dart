@@ -113,209 +113,209 @@ class _InstructorManageState extends State<InstructorManage> {
           minHeight: 60.0,
           body: mapLocation(),
           panel: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Column(
-            children: <Widget>[
-              InkWell(
-                onTap: () {
-                  _panelCtrl.isPanelOpen()
-                      ? _panelCtrl.close()
-                      : _panelCtrl.open();
-                },
-                child: ListTile(
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
-                  leading: Icon(
-                    Icons.arrow_drop_up,
-                    size: 32.0,
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_drop_up,
-                    size: 32.0,
-                  ),
-                  title: Text(
-                    "Tap to Open/Close",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textScaleFactor: 1.3,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              Divider(
-                thickness: 1.2,
-              ),
-              instructor(),
-              Divider(
-                thickness: 1.2,
-              ),
-              ListTile(
-                leading: Icon(Icons.local_library, size: 32),
-                title: Text(widget.document["subject"]),
-              ),
-              ListTile(
-                leading: Icon(Icons.library_books, size: 32),
-                title: Text(widget.document["topic"]),
-              ),
-              ListTile(
-                leading: Icon(Icons.calendar_today, size: 32),
-                title: Text(widget.document["schedule"]["days"]),
-              ),
-              ListTile(
-                leading: Icon(Icons.timer, size: 32),
-                title: Text(widget.document["schedule"]["time-start"] +
-                    " - " +
-                    widget.document["schedule"]["time-end"]),
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.attach_money,
-                  size: 32,
-                  color: widget.document["costs"] < 1
-                      ? Colors.green
-                      : Theme.of(context).primaryColor,
-                ),
-                title: Text(widget.document["costs"] < 1
-                    ? "Free"
-                    : "Php " + widget.document["costs"].toString()),
-              ),
-              ListTile(
-                onTap: () {
-                  widget.document["students"].isEmpty
-                      ? _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content:
-                              Text("No enrolled student(s) in this class yet")))
-                      : Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Scaffold(
-                                appBar: AppBar(
-                                  title: Text("List of Students"),
-                                ),
-                                body: ListView.builder(
-                                  itemCount: widget.document["students"].length,
-                                  itemBuilder: (context, index) {
-                                    return ListTile(
-                                      leading: CircleAvatar(
-                                        child: Center(
-                                            child:
-                                                Text((index + 1).toString())),
-                                      ),
-                                      title: StreamBuilder(
-                                        stream: widget.db
-                                            .collection("accounts")
-                                            .where("uid",
-                                                isEqualTo:
-                                                    widget.document["students"]
-                                                        [index])
-                                            .snapshots(),
-                                        builder: (context, snapshot) {
-                                          if (!snapshot.hasData ||
-                                              snapshot.connectionState ==
-                                                  ConnectionState.waiting) {
-                                            return Center(
-                                                child:
-                                                    CircularProgressIndicator());
-                                          }
-
-                                          return Text(snapshot.data.documents[0]
-                                              ["name"]);
-                                        },
-                                      ),
-                                      subtitle: StreamBuilder(
-                                        stream: widget.db
-                                            .collection("accounts")
-                                            .where("uid",
-                                                isEqualTo:
-                                                    widget.document["students"]
-                                                        [index])
-                                            .snapshots(),
-                                        builder: (context, snapshot) {
-                                          if (!snapshot.hasData ||
-                                              snapshot.connectionState ==
-                                                  ConnectionState.waiting) {
-                                            return Center(
-                                                child:
-                                                    CircularProgressIndicator());
-                                          }
-
-                                          return Text(snapshot.data.documents[0]
-                                              ["email"]);
-                                        },
-                                      ),
-                                      trailing: Icon(Icons.chevron_right),
-                                    );
-                                  },
-                                ),
-                              )));
-                },
-                leading: Icon(Icons.people, size: 32),
-                title: Text("List of Students"),
-                trailing: Icon(Icons.chevron_right, size: 32),
-              ),
-              Divider(thickness: 1.2),
-              widget.document["status"] == true
-                  ? Center(
-                      child: RaisedButton(
-                        onPressed: () async {
-                          Navigator.of(context).pop();
-                          await widget.db
-                              .collection("classes")
-                              .document(widget.document.documentID)
-                              .updateData({"status": false});
-                        },
-                        color: Theme.of(context).primaryColor,
-                        elevation: 5.0,
-                        child: Text("Class Done"),
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      _panelCtrl.isPanelOpen()
+                          ? _panelCtrl.close()
+                          : _panelCtrl.open();
+                    },
+                    child: ListTile(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+                      leading: Icon(
+                        Icons.arrow_drop_up,
+                        size: 32.0,
                       ),
-                    )
-                  : RaisedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Scaffold(
-                                  appBar: AppBar(
-                                    title: Text("Class Evaluation"),
-                                  ),
-                                  body: ListView.builder(
-                                    itemCount:
-                                        widget.document["feedbacks"].length,
-                                    itemBuilder: (context, index) {
-                                      print("Index: " + index.toString());
-                                      return ListTile(
-                                          leading: CircleAvatar(
-                                            radius: 20.0,
-                                            foregroundColor: Colors.white,
-                                            backgroundColor: widget.document[
-                                                            "feedbacks"][index]
-                                                        ["rating"] <
-                                                    2
-                                                ? Colors.red
-                                                : widget.document["feedbacks"]
-                                                                    [index]
-                                                                ["rating"] >=
-                                                            2 &&
-                                                        widget.document[
-                                                                    "feedbacks"]
-                                                                [
-                                                                index]["rating"] <=
-                                                            3
-                                                    ? Colors.orange
-                                                    : Colors.green,
-                                            child: Text(widget
-                                                .document["feedbacks"][index]
-                                                    ["rating"]
-                                                .toString()),
-                                          ),
-                                          title: Text(
-                                            widget.document["feedbacks"][index]
-                                                    ["comment"]
-                                                .toString(),
-                                          ));
-                                    },
-                                  ),
-                                )));
-                      },
-                      child: Text("See Evaluation/s"),
+                      trailing: Icon(
+                        Icons.arrow_drop_up,
+                        size: 32.0,
+                      ),
+                      title: Text(
+                        "Tap to Open/Close",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textScaleFactor: 1.3,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-              Divider(thickness: 1.2),
-            ],
-          )),
+                  ),
+                  Divider(
+                    thickness: 1.2,
+                  ),
+                  instructor(),
+                  Divider(
+                    thickness: 1.2,
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.local_library, size: 32),
+                    title: Text(widget.document["subject"]),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.library_books, size: 32),
+                    title: Text(widget.document["topic"]),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.calendar_today, size: 32),
+                    title: Text(widget.document["schedule"]["days"]),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.timer, size: 32),
+                    title: Text(widget.document["schedule"]["time-start"] +
+                        " - " +
+                        widget.document["schedule"]["time-end"]),
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.attach_money,
+                      size: 32,
+                      color: widget.document["costs"] < 1
+                          ? Colors.green
+                          : Theme.of(context).primaryColor,
+                    ),
+                    title: Text(widget.document["costs"] < 1
+                        ? "Free"
+                        : "Php " + widget.document["costs"].toString()),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      widget.document["students"].isEmpty
+                          ? _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text(
+                                  "No enrolled student(s) in this class yet")))
+                          : Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => Scaffold(
+                                    appBar: AppBar(
+                                      title: Text("List of Students"),
+                                    ),
+                                    body: ListView.builder(
+                                      itemCount:
+                                          widget.document["students"].length,
+                                      itemBuilder: (context, index) {
+                                        return ListTile(
+                                          leading: CircleAvatar(
+                                            child: Center(
+                                                child: Text(
+                                                    (index + 1).toString())),
+                                          ),
+                                          title: StreamBuilder(
+                                            stream: widget.db
+                                                .collection("accounts")
+                                                .where("uid",
+                                                    isEqualTo: widget.document[
+                                                        "students"][index])
+                                                .snapshots(),
+                                            builder: (context, snapshot) {
+                                              if (!snapshot.hasData ||
+                                                  snapshot.connectionState ==
+                                                      ConnectionState.waiting) {
+                                                return Center(
+                                                    child:
+                                                        CircularProgressIndicator());
+                                              }
+
+                                              return Text(snapshot
+                                                  .data.documents[0]["name"]);
+                                            },
+                                          ),
+                                          subtitle: StreamBuilder(
+                                            stream: widget.db
+                                                .collection("accounts")
+                                                .where("uid",
+                                                    isEqualTo: widget.document[
+                                                        "students"][index])
+                                                .snapshots(),
+                                            builder: (context, snapshot) {
+                                              if (!snapshot.hasData ||
+                                                  snapshot.connectionState ==
+                                                      ConnectionState.waiting) {
+                                                return Center(
+                                                    child:
+                                                        CircularProgressIndicator());
+                                              }
+
+                                              return Text(snapshot
+                                                  .data.documents[0]["email"]);
+                                            },
+                                          ),
+                                          trailing: Icon(Icons.chevron_right),
+                                        );
+                                      },
+                                    ),
+                                  )));
+                    },
+                    leading: Icon(Icons.people, size: 32),
+                    title: Text("List of Students"),
+                    trailing: Icon(Icons.chevron_right, size: 32),
+                  ),
+                  Divider(thickness: 1.2),
+                  widget.document["status"] == true
+                      ? Center(
+                          child: RaisedButton(
+                            onPressed: () async {
+                              Navigator.of(context).pop();
+                              await widget.db
+                                  .collection("classes")
+                                  .document(widget.document.documentID)
+                                  .updateData({"status": false});
+                            },
+                            color: Theme.of(context).primaryColor,
+                            elevation: 5.0,
+                            child: Text("Class Done"),
+                          ),
+                        )
+                      : RaisedButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Scaffold(
+                                      appBar: AppBar(
+                                        title: Text("Class Evaluation"),
+                                      ),
+                                      body: ListView.builder(
+                                        itemCount:
+                                            widget.document["feedbacks"].length,
+                                        itemBuilder: (context, index) {
+                                          print("Index: " + index.toString());
+                                          return ListTile(
+                                              leading: CircleAvatar(
+                                                radius: 20.0,
+                                                foregroundColor: Colors.white,
+                                                backgroundColor: widget
+                                                                    .document[
+                                                                "feedbacks"]
+                                                            [index]["rating"] <
+                                                        2
+                                                    ? Colors.red
+                                                    : widget.document["feedbacks"]
+                                                                        [index][
+                                                                    "rating"] >=
+                                                                2 &&
+                                                            widget.document["feedbacks"]
+                                                                        [index][
+                                                                    "rating"] <=
+                                                                3
+                                                        ? Colors.orange
+                                                        : Colors.green,
+                                                child: Text(widget
+                                                    .document["feedbacks"]
+                                                        [index]["rating"]
+                                                    .toString()),
+                                              ),
+                                              title: Text(
+                                                widget.document["feedbacks"]
+                                                        [index]["comment"]
+                                                    .toString(),
+                                              ));
+                                        },
+                                      ),
+                                    )));
+                          },
+                          child: Text("See Evaluation/s"),
+                        ),
+                  Divider(thickness: 1.2),
+                ],
+              )),
         ));
   }
 }

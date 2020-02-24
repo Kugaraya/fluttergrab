@@ -87,6 +87,7 @@ class _EvaluateState extends State<Evaluate> {
       key: _scaffoldKey,
       appBar: AppBar(title: Text("Evaluate this class")),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Container(
           padding: EdgeInsets.all(8.0),
           child: Center(

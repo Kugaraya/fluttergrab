@@ -120,6 +120,7 @@ class _StudentManageState extends State<StudentManage> {
           minHeight: 60.0,
           body: mapLocation(),
           panel: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               children: <Widget>[
                 InkWell(
